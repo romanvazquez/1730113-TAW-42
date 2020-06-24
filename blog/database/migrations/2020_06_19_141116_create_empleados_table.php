@@ -15,14 +15,14 @@ class CreateEmpleadosTable extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->id();
-            $table->string('nombres');
-            $table->string('apellidos');
-            $table->string('cedula');
-            $table->string('email')->unique();
-            $table->string('lugar_nacimiento');
+            $table->string('nombres', 30);
+            $table->string('apellidos', 30);
+            $table->string('cedula', 30);
+            $table->string('email', 50)->unique();
+            $table->string('lugar_nacimiento', 30);
             $table->enum('sexo',['masculino', 'femenino']);
             $table->enum('estado_civil',['soltero', 'casado']);
-            $table->integer('telefono');
+            $table->string('telefono',10);
             $table->timestamps();
         });
     }
