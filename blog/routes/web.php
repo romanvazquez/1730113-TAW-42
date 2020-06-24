@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 /* 
-
-18-06-2020 Realizaron las rutas por Postman
-
+* Métodos de obtener, guardar y eliminar datos
+* GET, POST, PUT, DELETE
 */
+
 
 Route::get('/productos', function(){
     return ('Listado de productos(get)');
@@ -36,16 +36,15 @@ Route::put('/productos/{id}', function($id){
 });
 
 // Parámetros
-Route::get('saludo/{nombre}/{apodo?}', function($nombre, $apodo){
+// Route::get('saludo/{nombre}/{apodo?}', function($nombre, $apodo){
     
-    $nombre = ucfirst($nombre);
-    // Validar si tiene un apodo
-    if($apodo){
-        return "Bienvenido {$nombre}, tu apodo es {$apodo}";
-    }
+//     $nombre = ucfirst($nombre);
+//     // Validar si tiene un apodo
+//     if($apodo){
+//         return "Bienvenido {$nombre}, tu apodo es {$apodo}";
+//     }
 
-    return "Bienvenido {$nombre}";
-});
+//     return "Bienvenido {$nombre}";
+// });
 
-// Métodos de obtener, guardar y eliminar datos
-// GET, POST, PUT, DELETE
+Route::get('/empleados/mostrar', 'EmpleadoController@mostrar');

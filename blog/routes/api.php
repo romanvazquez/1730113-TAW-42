@@ -26,37 +26,76 @@ Route::get('empleados', function(){
     return $empleados;
 });
 
+Route::get('empleados/{id}', function($id){
+    $empleado = Empleado::find($id);
+    return $empleado;
+});
 
-// Ruta para guardar nuevos empleados y recibir data (fase 1)
-Route::post('empleados', function(){
-    
-    // Verificar que los datos enviados se reciban bien
-    // return $request->all();
+// Ruta para recibir datos y guardar nuevos empleados 
+Route::post('empleados', function(Request $request){
 
     // Validar datos del empleado:
     $request->validate([
-        'nombres'=> 'required|max:50',
-        'apellidos'=> 'required|max:50',
-        'cedula'=> 'required|max:20',
-        'email'=> 'required||email|unique|max:50',
-        'lugar_nacimiento'=> 'required|max:50',
-        'estado_civil'=> 'required|max:50',
-        'telefono'=> 'required|numeric'
+        'nombres'=> 'required|max:30',
+        'apellidos'=> 'required|max:30',
+        'cedula'=> 'required|max:30',
+        'email'=> 'required||email|unique:empleados|max:50',
+        'lugar_nacimiento'=> 'required|max:30',
+        'sexo'=> 'required|max:15',
+        'estado_civil'=> 'required|max:15',
+        'telefono'=> 'required|max:10'
     ]);
     
     // Llenar los parámetros utilizando la petición
     $empleado = new Empleado;
     $empleado->nombres = $request->input('nombres');
-    $empleado->nombres = $request->input('apellidos');
-    $empleado->nombres = $request->input('cedula');
-    $empleado->nombres = $request->input('email');
-    $empleado->nombres = $request->input('lugar_nacimiento');
-    $empleado->nombres = $request->input('sexo');
-    $empleado->nombres = $request->input('estado_civil');
-    $empleado->nombres = $request->input('telefono');
+    $empleado->apellidos = $request->input('apellidos');
+    $empleado->cedula = $request->input('cedula');
+    $empleado->email = $request->input('email');
+    $empleado->lugar_nacimiento = $request->input('lugar_nacimiento');
+    $empleado->sexo = $request->input('sexo');
+    $empleado->estado_civil = $request->input('estado_civil');
+    $empleado->telefono = $request->input('telefono');
 
     $empleado->save();
     
-    return 'Usuario creado';
-    // return "Guardando empleados";
+    return 'Empleado creado';
+});
+
+// Ruta para actualizar empleado
+Route::put('empleados/{id}', function(Request $request, $id){
+    
+    $request->validate([
+        'nombres'=> 'required|max:30',
+        'apellidos'=> 'required|max:30',
+        'cedula'=> 'required|max:30',
+        'email'=> 'required|max:50|email|unique:empleados,email'.$id,
+        'lugar_nacimiento'=> 'required|max:30',
+        'sexo'=> 'required|max:15',
+        'estado_civil'=> 'required|max:15',
+        'telefono'=> 'required|max:10'
+    ]);
+
+    $empleado = Empleado::findOrFail($id);
+
+    $empleado->nombres = $request->input('nombres');
+    $empleado->apellidos = $request->input('apellidos');
+    $empleado->cedula = $request->input('cedula');
+    $empleado->email = $request->input('email');
+    $empleado->lugar_nacimiento = $request->input('lugar_nacimiento');
+    $empleado->sexo = $request->input('sexo');
+    $empleado->estado_civil = $request->input('estado_civil');
+    $empleado->telefono = $request->input('telefono');
+
+    $empleado->save();
+
+    return "Empleado actualizado";
+});
+
+// Ruta para eliminar empleados
+Route::delete('empleados/{id}',function($id){
+    
+    $empleado = Empleado::findOrFail($id);
+    $empleado->delete();
+    return "Empleado eliminado";
 });
