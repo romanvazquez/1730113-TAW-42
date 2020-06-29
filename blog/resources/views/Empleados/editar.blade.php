@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-5">
                                     <div class="text-right">
-                                        <a href="{{ route('empleados-route') }}"><label>Regresar a lista de empleados</label></a>
+                                        <a href="{{ route('empleados') }}"><label>Regresar a lista de empleados</label></a>
                                     </div>
                                 </div>
                             </div>

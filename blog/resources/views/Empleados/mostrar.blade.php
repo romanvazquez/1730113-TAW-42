@@ -56,7 +56,8 @@
                                 <div class="text-center"><i class="fas fa-pen"></i> Editar</div>
                             </a>
                             
-                            <form action="{{ route('eliminar-empleado', [$empleado->id]) }}" method="POST">
+                            <form action="{{ url('empleados/'.$empleado->id.'/eliminar') }}" method="POST">
+                                @csrf
                                 <input type="submit" value="Eliminar" class="trash">
                             </form>
                         </td>
