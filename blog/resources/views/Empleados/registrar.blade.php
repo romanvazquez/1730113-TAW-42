@@ -9,7 +9,7 @@
             <div class="container col-sm-12 col-md-10 col-lg-10 col-xl-7">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form action="{{ action('registrar-empleado', $empleado->id) }}" method="POST" data-parsley-validate>
+                        <form action="{{ route('registrar-empleado') }}" method="POST" data-parsley-validate>
                             
                             @csrf
                             <div class="row">
@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-5">
                                     <div class="text-right">
-                                        <a href="{{ route('empleados-route') }}"><label>Regresar a lista de empleados</label></a>
+                                        <a href="{{ route('empleados') }}"><label>Regresar a lista de empleados</label></a>
                                     </div>
                                 </div>
                             </div>

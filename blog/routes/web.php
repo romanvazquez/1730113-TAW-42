@@ -27,7 +27,7 @@ Route::view('/contact','contact')->name('contact');
 * Vistas Empleados
 *
 */
-Route::get('/empleados', 'EmpleadoController@mostrar')->name('empleados-route');
+Route::get('/empleados', 'EmpleadoController@mostrar')->name('empleados');
 
 // Enviar rutas al controlador junto con la invocación de su método respectivo 
 Route::get('/empleados/mostrar', 'EmpleadoController@mostrar');
@@ -42,13 +42,13 @@ Route::post('/empleados/registrar', 'EmpleadoController@registrar')->name('regis
 
 Route::post('/empleados/{id}/editar', 'EmpleadoController@editar')->name('editar-empleado');
 
-Route::post('/empleados/eliminar', 'EmpleadoController@eliminar')->name('eliminar-empleado');;
+Route::post('/empleados/{id}/eliminar', 'EmpleadoController@eliminar')->name('eliminar-empleado');
 
 /*
 *
 * Redirigir hacia la vista correcta, los errores más comunes al acceder a la vista, a través de la URL
 *
 */
-Route::get('/Empleados', function(){ return redirect()->route('empleados-route'); });
-Route::get('/Empleado', function(){ return redirect()->route('empleados-route'); });
-Route::get('/empleado', function(){ return redirect()->route('empleados-route'); });
+Route::get('/Empleados', function(){ return redirect()->route('empleados'); });
+Route::get('/Empleado', function(){ return redirect()->route('empleados'); });
+Route::get('/empleado', function(){ return redirect()->route('empleados'); });

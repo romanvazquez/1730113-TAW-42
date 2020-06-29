@@ -76,7 +76,7 @@ class EmpleadoController extends Controller
 
     // Controlador para eliminar 
     public function eliminar($id){
-        $empleado = Task::findOrFail($id);
+        $empleado = Empleado::findOrFail($id);
 
         $empleado->delete();
         // Alert::success('Dato eliminado');
