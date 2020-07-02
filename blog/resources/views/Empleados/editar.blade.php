@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Agregar empleado')
+@section('title', 'Editar empleado')
 
 @section('content')
 
@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-5">
                                     <div class="text-right">
-                                        <a href="{{ route('empleados') }}"><label>Regresar a lista de empleados</label></a>
+                                        <a href="{{ route('empleados') }}"><label>Regresar a lista de {{ $data['entidad'] }}</label></a>
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +87,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="form-group col-sm-4">
+                                    <label for="id_departamento">Departamento</label><!-- Mandatory field --><sup class="text-danger">*</sup>
+                                    <select  class="form-control" name="id_departamento" id="id_departamento" required>
+                                        <option value="">Seleccione un departamento</option>
+
+                                        @foreach($departamentos as $departamento)
+
+                                        <option value="{{ $departamento->id }}" {{ $departamento->id == $empleado->id_departamento ? 'selected' : '' }} >{{ $departamento->nombre }}</option>
+                                        @endforeach
+                                        
+                                    </select>
                                 </div>
                             </div>
 
