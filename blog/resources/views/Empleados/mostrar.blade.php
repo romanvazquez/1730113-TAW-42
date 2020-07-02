@@ -5,17 +5,17 @@
 @section('content')
 
     <div class="container-fluid">
-        <h2 class="mt-4">Título</h2>
+        <h2 class="mt-4">{{ $data['titulo'] }}</h2>
 
         <div class="row mt-4 mb-4">
             <div class="col-6">
                 <div class="text-left">
-                    <a href="{{ route('registrar-empleado') }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar nuevo</a>
+                    <a href="{{ route('registrar-empleado') }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-fw fa-plus-circle"></i> Registrar nuevo {{ $data['entidad'] }}</a>
                 </div>
             </div>
             <div class="col-6">
                 <div class="text-right">
-                    <i class="fa fa-fw fa-globe"></i><strong> Buscar</strong>
+                    <i class="fa fa-fw fa-globe"></i><strong> Buscar {{ $data['entidad'] }}</strong>
                 </div>
             </div>
         </div>
@@ -31,7 +31,8 @@
                         <th scope="col">Lugar de nacimiento</th>
                         <th scope="col">Sexo</th>
                         <th scope="col">Estado civil</th>
-                        <th scope="col">telefono</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Departamento</th>
                         
                         <th scope="col"></th>
                     </tr>
@@ -50,6 +51,7 @@
                         <td>{{ $empleado->sexo }}</td>
                         <td>{{ $empleado->estado_civil }}</td>
                         <td>{{ $empleado->telefono }}</td>
+                        <td>{{ $empleado->departamento }}</td>
 
                         <td class="actions">
                             <a href="{{ url('empleados/'.$empleado->id.'/editar') }}" class="edit">

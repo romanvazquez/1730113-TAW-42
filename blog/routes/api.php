@@ -26,6 +26,7 @@ Route::get('empleados', function(){
     return $empleados;
 });
 
+// Listar empleado recibiendo un parámetro
 Route::get('empleados/{id}', function($id){
     $empleado = Empleado::find($id);
     return $empleado;

@@ -17,11 +17,6 @@ Route::view('/','welcome')->name('home');
 Route::view('/about','about')->name('about');
 Route::view('/contact','contact')->name('contact');
 
-/* 
-* Métodos de obtener, guardar y eliminar datos
-* GET, POST, PUT, DELETE
-*/
-
 /*
 *
 * Vistas Empleados
@@ -34,7 +29,8 @@ Route::get('/empleados/mostrar', 'EmpleadoController@mostrar');
 
 Route::get('/empleados/registrar','EmpleadoController@registrar');
 
-// Ruta parametrizada
+
+// Ruta parametrizada para editar
 Route::get('/empleados/{id}/editar', 'EmpleadoController@editar');
 
 // Rutas para los formularios REGISTRAR y EDITAR
@@ -43,6 +39,30 @@ Route::post('/empleados/registrar', 'EmpleadoController@registrar')->name('regis
 Route::post('/empleados/{id}/editar', 'EmpleadoController@editar')->name('editar-empleado');
 
 Route::post('/empleados/{id}/eliminar', 'EmpleadoController@eliminar')->name('eliminar-empleado');
+
+/*
+*
+* Vistas Departamentos
+*
+*/
+Route::get('/departamentos', 'DepartamentoController@mostrar')->name('departamentos');
+
+// Enviar rutas al controlador junto con la invocación de su método respectivo 
+Route::get('/departamentos/mostrar', 'DepartamentoController@mostrar');
+
+Route::get('/departamentos/registrar','DepartamentoController@registrar');
+
+
+// Ruta parametrizada para editar
+Route::get('/departamentos/{id}/editar', 'DepartamentoController@editar');
+
+// Rutas para los formularios REGISTRAR y EDITAR
+Route::post('/departamentos/registrar', 'DepartamentoController@registrar')->name('registrar-departamento');
+
+Route::post('/departamentos/{id}/editar', 'DepartamentoController@editar')->name('editar-departamento');
+
+Route::post('/departamentos/{id}/eliminar', 'DepartamentoController@eliminar')->name('eliminar-departamento');
+
 
 /*
 *

@@ -14,7 +14,7 @@ class CreateEmpleadosTable extends Migration
     public function up()
     {
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id', 11);
             $table->string('nombres', 30);
             $table->string('apellidos', 30);
             $table->string('cedula', 30);
@@ -24,6 +24,9 @@ class CreateEmpleadosTable extends Migration
             $table->enum('estado_civil',['soltero', 'casado']);
             $table->string('telefono',10);
             $table->timestamps();
+
+            $table->smallInteger('id_departamento');
+            $table->foreign('id_departamento')->references('id')->on('departamentos');
         });
     }
 
