@@ -19,4 +19,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home'); // Vista protegida para el Dashboard
+
+/*
+*
+* Header routes
+*
+*/ 
+Route::view('/inicio','/welcome')->name('inicio');
+Route::view('/afiliate','/headers/afiliate')->name('afiliate');
+Route::view('/headers/about','about')->name('about');
+Route::view('/headers/faq','faq')->name('faq');
+Route::view('/headers/contacto','contacto')->name('contacto');
+
+// Empresas
+Route::get('/Empresa/registrar','EmpresaControlador@registrar');
+
+// Operaciones CRUD
+Route::post('/Empresa/registrar', 'EmpresaControlador@registrar')->name('registrar-empresa');

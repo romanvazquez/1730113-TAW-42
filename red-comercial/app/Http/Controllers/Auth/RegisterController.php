@@ -9,8 +9,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller
-{
+use Illuminate\Validation\Rule;
+
+class RegisterController extends Controller{
+    
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -47,27 +49,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data){
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'usuario' => ['required', 'string', 'max:30'],
+            'nombres' => ['required', 'string', 'max:30'],
+            'apellidos' => ['required', 'string', 'max:30'],
+            'email' => ['required', 'string', 'email', 'max:72', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'sexo' => ['required', Rule::in(['H','M'])],
+            'fecha_nacimiento' => ['required', 'date'],
+            'telefono' => ['required', 'string', 'max:10'],
         ]);
     }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
+    
+    protected function create(array $data){
+        // print_r($data);
         return User::create([
-            'name' => $data['name'],
+            'usuario' => $data['usuario'],
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'sexo' => $data['sexo'],
+            'fecha_nacimiento' => $data['fecha_nacimiento'],
+            'telefono' => $data['telefono']
         ]);
     }
 }
