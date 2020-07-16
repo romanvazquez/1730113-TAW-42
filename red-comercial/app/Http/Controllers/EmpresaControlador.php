@@ -13,41 +13,44 @@ class EmpresaControlador extends Controller{
     }
 
     public function registrar(Request $request){
-        $data=['titulo' => 'Empresas', 'entidad' => 'empresa'];
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $empresa = new Empresa;
+            
+        $empresa->nombre = $request->input('nombre');
+        $empresa->descripcion = $request->input('descripcion');
+        $empresa->telefono = $request->input('telefono');
+        $empresa->giro_comercio = $request->input('giro_comercio');
+        $empresa->palabras_clave = $request->input('palabras_clave');
+        $empresa->logotipo = $request->logotipo->getClientOriginalName();
+
+        if($request->hasFile('logotipo')){ // Si se carga una imagen, almacenarla en el directorio señalado
+            
+            $filename = $request->logotipo->getClientOriginalName();
+            $request->logotipo->storeAs('empresas',$filename,'public');
+        }
+
+        $empresa->save();
+        
+        // if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
             // Registrar los datos del request
-            $empresa = [
-                'nombre' => $request->input('nombre'),
-                'descripcion' => $request->input('descripcion'),
-                'telefono' => $request->input('telefono'),
-                'giro_comercio' => $request->input('giro_comercio'),
-                'palabras_clave' => $request->input('palabras_clave'),
-                'logotipo' => $request->logotipo->getClientOriginalName()
-
-            ];
-
-            if($request->hasFile('logotipo')){ // Si se carga una imagen, almacenarla en el directorio señalado
-                $request->logotipo->store('empresas');
-            }
             
 
             //Insertar los campos del formulario en la tabla de la base de datos
-            DB::Table('empresas')->insertGetId($empresa);
+            
             
             // // Mensaje de alerta
             // // Alert::success('Datos guardados con éxito.');
             // return redirect('empresas');
             return "Empresa registrada";
 
-        } else { // SI el REQUEST NO es a través de POST
+        // } else { // SI el REQUEST NO es a través de POST
         
-            $empresa = [
-            ];
+        //     $empresa = [
+        //     ];
 
-            // Se envía hacia la vista de registro
-            return view('Empresas/registrar', compact('empresa', 'data'));
-        }
+        //     // Se envía hacia la vista de registro
+        //     return view('Empresas/registrar', compact('empresa', 'data'));
+        // }
     }
 }

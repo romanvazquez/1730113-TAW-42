@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Rutas para el Dropdown dinámico dependiente
+Route::get('getEstados', 'APIController@getEstados');
+Route::get('getMunicipios', 'APIController@getMunicipios');
+Route::get('getLocalidades', 'APIController@getLocalidades');
+Route::get('getTiposCalle', 'APIController@getTiposCalle');

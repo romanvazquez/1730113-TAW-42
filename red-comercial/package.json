@@ -22,5 +22,11 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@babel/core": "^7.10.5",
+        "babel-loader": "^8.1.0",
+        "google-maps-api-loader": "^1.1.1",
+        "vue2-google-maps": "^0.10.7"
     }
 }

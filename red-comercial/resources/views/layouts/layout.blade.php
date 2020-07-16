@@ -14,8 +14,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>
+        <!-- Scripts --> <!-- Va hasta el final -->
+        {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
