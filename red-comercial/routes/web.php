@@ -33,7 +33,11 @@ Route::view('/headers/faq','faq')->name('faq');
 Route::view('/headers/contacto','contacto')->name('contacto');
 
 // Empresas
-Route::get('/Empresa/registrar','EmpresaControlador@registrar');
+Route::resource('/empresas', 'EmpresaController')->middleware('auth');
+
+// Route::get('/Empresa/registrar','EmpresaControlador@registrar');
+Route::view('/Empresa/registrar-domicilio','/Empresas/registrar-domicilio');
+    
 
 // Operaciones CRUD
 Route::post('/Empresa/registrar', 'EmpresaControlador@registrar')->name('registrar-empresa');

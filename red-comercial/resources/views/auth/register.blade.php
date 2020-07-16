@@ -10,12 +10,12 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">{{ __('Registro') }}</div>
+                        <div class="card-header">{{ __('Registro') }}</div>
 
                             <div class="card-body">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
-
+                                    
                                     <div class="form-row">
                                         <div class="form-group col-sm-6">
                                             <label for="name" class="col-form-label">{{ _('Nombre(s)') }}</label>
@@ -104,7 +104,7 @@
                                             <a href="{{ route('home') }}" class="btn btn-secondary float-left">Regresar</a>
                                             <button type="reset" class="btn btn-light">Limpiar</button>
                                             <button type="submit" class="btn btn-primary">
-                                                {{ __('Register') }}
+                                                {{ __('Registrar') }}
                                             </button>
                                         </div>
                                     </div>
