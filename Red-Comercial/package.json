@@ -19,11 +19,11 @@
         "bootstrap": "^4.5.0",
         "bootstrap-vue": "^2.16.0",
         "debounce": "^1.2.0",
-        "gmap-vue": "^1.2.1",
         "jquery": "^3.5.0",
         "module": "^1.2.5",
         "summernote": "^0.8.16",
         "vue-server-renderer": "^2.6.10",
+        "vue2-google-maps": "^0.10.7",
         "vuelidate": "^0.7.5",
         "vuetify": "^2.0.0",
         "vuetify-google-autocomplete": "^2.0.0-beta.6"

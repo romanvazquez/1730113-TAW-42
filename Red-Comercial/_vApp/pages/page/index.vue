@@ -1,22 +1,12 @@
 <template>
     <div>
-        <Header
-          heading="Page"
-        >
-            <v-btn
-                to="/page/add"
-                color="info"
-            >
-                <v-icon left>mdi-view-list</v-icon>
-                Add
+        <Header heading="Páginas">
+            <v-btn to="/page/add" color="info">
+                <v-icon left>mdi-view-list</v-icon>Agregar nueva
             </v-btn>
         </Header>
-        <Listing
-            endpoint="/page"
-            slug="/page"
-            component="page"
-        >
-        </Listing>
+        
+        <Listing endpoint="/page" slug="/page" component="page"></Listing>
     </div>
 </template>
 

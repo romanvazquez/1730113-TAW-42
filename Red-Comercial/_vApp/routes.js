@@ -8,6 +8,9 @@ Vue.use(VueRouter)
 import Pages from './pages/page/list'
 import PageAdd from './pages/page/add'
 
+import Empresas from './pages/empresas/list'
+import EmpresaAdd from './pages/empresas/add'
+
 import PostCategoryAdd from './pages/postCategory/add.vue'
 import PostCategoryEdit from './pages/postCategory/add.vue'
 import PostCategoryList from './pages/postCategory/list.vue'
@@ -29,7 +32,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/register/:tipo',
+        path: '/register/:tipo?',
         component: RegisterScreen
     },
     {
@@ -40,6 +43,16 @@ const routes = [
         path: '/login',
         component: LoginScreen
     },
+    
+    {
+        path: '/empresas/add',
+        component: EmpresaAdd
+    },
+    {
+        path: '/empresas',
+        component: Empresas
+    },
+
     {
         path: '/page/add',
         component: PageAdd

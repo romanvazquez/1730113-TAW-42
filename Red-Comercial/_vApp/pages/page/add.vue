@@ -14,36 +14,38 @@
                   color="success"
                   :value="page.status"
                 ></v-switch>
-              <v-btn
-                  min-width="130px"
-                  color="success"
-                  class="mr-5"
-                  type="submit"
-                  :loading="$store.state.loading"
-              >
-                  <v-icon left>mdi-content-save-outline</v-icon>
-                  Save
-              </v-btn>
-              <v-btn
-                  to="/pages"
-                  color="info"
-              >
-                  <v-icon left>mdi-view-list</v-icon>
-                  list
-              </v-btn>
+
+                <v-btn
+                    min-width="130px"
+                    color="success"
+                    class="mr-5"
+                    type="submit"
+                    :loading="$store.state.loading"
+                >
+                    <v-icon left>mdi-content-save-outline</v-icon>
+                    Guardar
+                </v-btn>
+                <v-btn
+                    to="/pages"
+                    color="info"
+                >
+                    <v-icon left>mdi-view-list</v-icon>
+                    Ver páginas
+                </v-btn>
             </Header>
+
             <v-card class="full">
                  <v-tabs
                    background-color="white"
                    color="info accent-4"
                    left
                  >
-                 <v-tab>Information</v-tab>
+                 <v-tab>Información</v-tab>
                  <v-tab>SEO</v-tab>
                  <v-tab-item class="pa-5" :eager="true">
                    <v-text-field
                      v-model="page.name"
-                     label="Name*"
+                     label="Título*"
                      name="name"
                      required
                      :rules="validateRules"
@@ -63,17 +65,15 @@
                    <Textarea
                        autocomplete="nope"
                        outlined
+                       label="Contenido"
                        name="content"
-                       label="Content"
                        :value="page.content"
                    ></Textarea>
 
                  </v-tab-item>
 
               <v-tab-item class="pa-5" :eager="true">
-                <SEO
-                  :meta="page"
-                >
+                <SEO :meta="page">
                 </SEO>
               </v-tab-item>
             </v-tabs>
@@ -97,10 +97,10 @@
       return {
         page: [],
         validateRules: [
-          v => !!v || 'This field is required'
+          v => !!v || 'Este campo es obligatorio'
         ],
         emailRules: [
-          v => !!v || 'E-mail is required',
+          v => !!v || 'La dirección de correo electrónico es obligatoria',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ]
       }
@@ -125,13 +125,13 @@
                   return 'Page: ' + this.page.name;
             }
 
-            return 'Add Page';
+            return 'Agregar página';
         },
       pageAdd () {
           if (this.$refs.pageAdd.validate() == false) {
               this.$store.commit('snackbar', {
                 status: 'error',
-                text: 'Please supply mandatory fields.'
+                text: 'Existen campos vacíos o no válidos. Por favor, ingrese los datos correctamente.'
               });
               return true;
           }
@@ -163,7 +163,7 @@
         if (this.$router.history.current.query.added == 'true') {
           this.$store.commit('snackbar', {
             status: 'success',
-            text: 'Page Added Successfully'
+            text: 'La página ha sido agregada satisfactoriamente.'
           });
         }
       }

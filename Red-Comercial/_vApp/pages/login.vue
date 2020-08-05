@@ -1,56 +1,52 @@
 <template>
-  <div>
-    <visitante-header/>
-    <v-container>
-      <v-row wrap class="justify-content-center align-center _90vh">
-        <v-col xs="10" sm="10" md="8" lg="7" xl="7">
-          <v-container>
-            <v-card>
+  <v-container>
+    
+    <VisitanteAppBar/>
 
-              <v-list-item>
-                  <v-list-item-avatar>
-                      <v-icon>mdi-account</v-icon>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                      <v-list-item-title class="headline">Iniciar sesion</v-list-item-title>
-                      
-                      <router-link to="/register/usuario">
-                          <v-list-item-subtitle>¿No tienes una cuenta? Regístrate</v-list-item-subtitle>
-                      </router-link>
-                      
-                  </v-list-item-content>
-              </v-list-item>
+    <v-row class="justify-content-center align-center _90vh">
+      <v-col cols="10" sm="10" md="8" lg="7" xl="7">
+        <v-container>
+          <v-card>
 
-              <v-card-text class="pa-8">
-                <v-form ref="loginForm" @submit.prevent="logIn" @reset="reset">
+            <v-toolbar>
+                <v-toolbar-title class="headline">
+                  <v-icon left>mdi-account</v-icon>
+                  Iniciar sesión
+                </v-toolbar-title>
+                <div class="flex justify-center justify-md-end"></div>
+                <router-link to="/register/empresario" class="caption">
+                    ¿No tienes una cuenta? Regístrate
+                </router-link>
+            </v-toolbar>
+
+            <v-card-text class="pa-8">
+              <v-form ref="loginForm" @submit.prevent="logIn" @reset="reset">
+                
+                <v-text-field outlined dense type="email" prepend-icon="mdi-email" label="E-Mail *" v-model="email" required
+                :error-messages="emailErrors"
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()">
+                </v-text-field>
                   
-                  <v-text-field outlined dense type="email" prepend-icon="mdi-email" label="E-Mail *" v-model="email" required
-                  :error-messages="emailErrors"
-                  @input="$v.email.$touch()"
-                  @blur="$v.email.$touch()">
-                  </v-text-field>
-                    
-                  <v-text-field outlined dense type="password" prepend-icon="mdi-lock" label="Password *" v-model="password" required
-                  :error-messages="passwordErrors"
-                  @input="$v.password.$touch()"
-                  @blur="$v.password.$touch()">
-                  </v-text-field>
+                <v-text-field outlined dense type="password" prepend-icon="mdi-lock" label="Password *" v-model="password" required
+                :error-messages="passwordErrors"
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()">
+                </v-text-field>
 
-                  <v-checkbox label="Mantenerme conectado" v-model="keep_active" color="success"></v-checkbox>
+                <v-checkbox label="Mantenerme conectado" v-model="keep_active" color="success"></v-checkbox>
 
-                  <v-card-actions class="justify-center justify-md-end">
-                    <v-btn type="reset" large color="light">Limpiar</v-btn>
-                    <v-btn type="submit" large color="primary" :loading="loading">Ingresar</v-btn>
-                  </v-card-actions>
-                </v-form>
-
-              </v-card-text>
-            </v-card>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+                <v-card-actions class="justify-center justify-md-end">
+                  <v-btn type="reset" color="light">Limpiar</v-btn>
+                  <v-btn type="submit" color="primary" :loading="loading">Ingresar</v-btn>
+                </v-card-actions>
+              </v-form>
+            </v-card-text>
+          </v-card>
+        </v-container>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -106,10 +102,6 @@ export default {
        }
 
     })
-  },
-  // Se le asigna el LAYOUT correspondiente
-  created () {
-      this.$store.commit('SET_LAYOUT', 'usuario-layout')
   },
 
   methods: {
