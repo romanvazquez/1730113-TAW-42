@@ -7,13 +7,9 @@
     >
       <template v-slot:prepend>
         <v-list class="py-0" id="_logo">
-
-          <v-list-item
-            link
-            two-line
-          >
+          <v-list-item link two-line>
             <v-list-item-content>
-              <v-list-item-title class="title _900">AdLara</v-list-item-title>
+              <v-list-item-title class="title _900">Panel</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -21,32 +17,20 @@
 
       <v-divider></v-divider>
 
-      <v-list
-        nav
-        id="_sideList"
-        dense
-      >
+      <v-list nav id="_sideList" dense>
         <template v-for="item in items">
-          <v-row
-            v-if="item.heading"
-            :key="item.heading"
-            align="center"
-          >
+          <v-row v-if="item.heading" :key="item.heading" align="center">
             <v-col cols="6">
               <v-subheader v-if="item.heading">
                 {{ item.heading }}
               </v-subheader>
             </v-col>
-            <v-col
-              cols="6"
-              class="text-center"
-            >
-              <a
-                href="#!"
-                class="body-2 black--text"
-              >EDIT</a>
+            
+            <v-col cols="6" class="text-center">
+              <a href="#!" class="body-2 black--text">EDIT</a>
             </v-col>
           </v-row>
+
           <v-list-group
             v-else-if="item.children"
             :key="item.text"
@@ -63,6 +47,7 @@
                 </v-list-item-content>
               </v-list-item>
             </template>
+            
             <v-list-item
               v-for="(child, i) in item.children"
               :key="i"
@@ -73,13 +58,17 @@
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-item-action>
+
               <v-list-item-content>
                 <v-list-item-title>
                   {{ child.text }}
                 </v-list-item-title>
               </v-list-item-content>
+
             </v-list-item>
+
           </v-list-group>
+
           <v-list-item
             v-else
             :key="item.text"
@@ -108,31 +97,38 @@ export default {
       arrowDown : 'mdi-chevron-down',
       arrowUp : 'mdi-chevron-up',
       items: [
-        { 
+        {
+          // Páginas del micrositio
           icons: 'mdi-iframe-braces-outline',
-          text: 'Content',
+          text: 'Contenido',
           model: false,
           children: [
             { 
+                icon: 'mdi-square-inc-cash',
+                text: 'Empresas',
+                link: '/empresas'
+            },
+            { 
                 icon: 'mdi-view-list',
-                text: 'Pages',
+                text: 'Páginas',
                 link: '/pages'
             }
           ]
         },
         { 
-          icons: 'mdi-blogger',
-          text: 'Blog',
+          // Procuctos y categorías
+          icons: 'mdi-store',
+          text: 'Productos',
           model: false,
           children: [
             { 
                 icon: 'mdi-view-list',
-                text: 'Posts',
+                text: 'Publicaciones',
                 link: '/posts'
             },
             { 
                 icon: 'mdi-post',
-                text: 'Categories',
+                text: 'Categorías',
                 link: '/blog/category'
             }
           ]

@@ -1,8 +1,8 @@
 <?php
 
-Route::get('/', function () {
-    return redirect(config('adlara.admin_route') . '/app/login');
-});
+// Route::get('/', function () {
+//     return redirect(config('adlara.admin_route') . '/app/login');
+// });
 
 Route::get('app', function () {
     return redirect(config('adlara.admin_route') . '/app/posts');

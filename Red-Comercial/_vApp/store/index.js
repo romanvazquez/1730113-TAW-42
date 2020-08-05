@@ -20,8 +20,6 @@ const store = new Vuex.Store({
         mediaSelectionFinished: false,
         mediaType: 'Image',
         drawerVisibility: true,
-
-        layout: 'visitante-layout', // Default Layour for dynamics layout
     },
     mutations: {
         setDrawerVisibility(state, val) {
@@ -62,10 +60,6 @@ const store = new Vuex.Store({
         },
         media_dialog(state, status) {
             state.media_dialog = status;
-        },
-
-        SET_LAYOUT (state, newLayout) {
-            state.layout = newLayout
         },
     }
 });
