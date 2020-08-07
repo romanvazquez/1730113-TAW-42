@@ -6,8 +6,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
 
-; // Se importa el modelo para los Roles de usuario
-
 class AdminUser extends Authenticatable{
     use Notifiable;
 

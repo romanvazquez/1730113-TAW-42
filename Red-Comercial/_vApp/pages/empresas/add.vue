@@ -1,90 +1,31 @@
 <template>
     <div>
-        
-        <Header :heading="getHeading()">
-            <v-switch
-                hide-details
-                class="mr-8"
-                v-model="page.status"
-                inset
-                name="status"
-                label="Status"
-                color="success"
-                :value="page.status"
-            ></v-switch>
+        <v-form id="empresaAdd" ref="empresaAdd" @submit.prevent="empresaAdd" autocomplete="nope">
+            <!-- Cabecera del componente -->
+            <Header :heading="getHeading()">
+                
+                <!-- Botón para guardar y enviar el contenido del formulario -->
+                <v-btn min-width="130px" color="success" class="mr-5" type="submit" :loading="$store.state.loading">
+                    <v-icon left>mdi-content-save-outline</v-icon>Guardar
+                </v-btn>
 
-            <v-btn
-                min-width="130px"
-                color="success"
-                class="mr-5"
-                type="submit"
-                :loading="$store.state.loading"
-            >
-                <v-icon left>mdi-content-save-outline</v-icon>
-                Guardar
-            </v-btn>
+                <!-- Botón para ir hacia el listado -->
+                <v-btn to="/empresas" color="info">
+                    <v-icon left>mdi-view-list</v-icon>Ver empresas
+                </v-btn>
+            </Header>
+            
+            <!-- Contenido del componente -->
+            <v-container>
+                <v-row class="justify-center align-center">
+                    <v-col cols="12" sm="10" md="8" lg="7" xl="6">    
+                        <v-container>
 
-            <v-btn to="/pages" color="info">
-                <v-icon left>mdi-view-list</v-icon>
-                Ver empresas
-            </v-btn>
-        </Header>
-
-            <!-- <v-card class="full">
-                 <v-tabs background-color="white" color="info accent-4" left>
-                    <v-tab>Información</v-tab>
-                    <v-tab>SEO</v-tab>
-                    <v-tab-item class="pa-5" :eager="true">
-                        
-                        <v-text-field
-                            v-model="page.name"
-                            label="Título*"
-                            name="name"
-                            required
-                            :rules="validateRules"
-                            autocomplete="nope"
-                        ></v-text-field>
-
-                        <v-text-field
-                            v-model="page.url"
-                            label="Url*"
-                            type="text"
-                            required
-                            :rules="validateRules"
-                            name="url"
-                            autocomplete="nope"
-                        ></v-text-field>
-
-                   <Textarea
-                       autocomplete="nope"
-                       outlined
-                       label="Contenido"
-                       name="content"
-                       :value="page.content"
-                   ></Textarea>
-
-                 </v-tab-item>
-
-              <v-tab-item class="pa-5" :eager="true">
-                <SEO :meta="page">
-                </SEO>
-              </v-tab-item>
-            </v-tabs>
-          </v-card> -->
-        
-        <v-container>
-            <v-row class="justify-content-center align-center">
-                <v-col cols="12" sm="12" md="11" lg="9" xl="9">    
-                    <v-container>
-
-                        <v-stepper v-model="e1">
-                            <!-- <v-form ref="registerForm" @submit.prevent="register"> -->
-                            <v-form id="pageAdd" ref="pageAdd" @submit.prevent="pageAdd" autocomplete="nope">
-
+                            <!-- Encabezado del contenedor -->
+                            <v-stepper v-model="e1">
                                 <v-toolbar flat>
                                     <v-toolbar-title class="headline">
-                                    <v-icon left>mdi-store</v-icon>
-                                    Registra tu empresa
+                                        <v-icon left>mdi-store</v-icon>Registra tu empresa
                                     </v-toolbar-title>
                                     <div class="flex justify-center justify-md-end"></div>
                                 </v-toolbar>
@@ -112,10 +53,10 @@
                                                 <v-text-field type="tel" label="Teléfono *" outlined dense required v-model="empresa.telefono"></v-text-field>
                                             </v-col>
                                             
-                                            <v-col cols="12" sm="6" class="mt-n6">
-                                                <v-radio-group label="Giro del comercio *" row v-model="empresa.giro_comercio">
-                                                    <v-radio label="Productos" value="0"></v-radio>
-                                                    <v-radio label="Servicios" value="1"></v-radio>
+                                            <v-col cols="12" sm="6" class="mt-n9">
+                                                <v-radio-group label="Giro del comercio *" v-model="empresa.giro_comercio">
+                                                    <v-radio label="Productos" value="Productos"></v-radio>
+                                                    <v-radio label="Servicios" value="Servicios"></v-radio>
                                                 </v-radio-group>
                                             </v-col>
                                         </v-row>
@@ -133,17 +74,16 @@
                                                     
                                                     <v-avatar class="accent white--text" left v-text="data.item.slice(0, 1).toUpperCase()"></v-avatar>
                                                     {{ data.item }}
-
                                                 </v-chip>
                                             </template>
                                         </v-combobox>
-
+                                        
                                         <v-file-input outlined dense accept="image/*" small-chips show-size label="Logotipo de la empresa" 
                                         prepend-icon="mdi-camera" ><!-- @change="onFileUpload" -->
                                         </v-file-input>
                                         
                                         <div class="flex justify-center justify-md-end">
-                                            <v-btn outlined color="primary" @click="e1 = 2">
+                                            <v-btn color="info" @click="e1 = 2">
                                                 Continuar<v-icon>mdi-chevron-right</v-icon>
                                             </v-btn>
                                         </div>
@@ -208,7 +148,9 @@
                                         </v-list-item>
 
                                         <div class="flex justify-center">
-                                            <!-- Se escribe el lugar que queremos posicionar (En caso de estar ubicados en google maps) -->
+                                            <!-- 
+                                                El autocompletado de lugares de google
+                                                Se escribe el lugar que queremos posicionar (Ubicados en google maps) -->
                                             <gmap-autocomplete 
                                             @place_changed="setPlace"></gmap-autocomplete>
                                             <v-btn text outlined color="primary" @click="setMarker">Marcar</v-btn>
@@ -217,7 +159,7 @@
                                         <div class="flex justify-center">
                                             <!-- 
                                                 Se define la región que visualiza el mapa y el nivel de Zoom.
-                                                Se deshabilitan las opciones de streetViewControl y el tipo de mapa. Y se definen las dimensiones. -->
+                                                Se deshabilitan las opciones de streetViewControl y el tipo de mapa. También se definen las dimensiones. -->
                                             <gmap-map
                                             :center="center" :zoom="15"
                                             :options="{streetViewControl: false, mapTypeControl: false}"
@@ -235,42 +177,67 @@
                                         </div>
 
                                         <div class="flex justify-center justify-md-end mt-5">
-                                            <v-btn outlined color="grey" class="mr-2" @click="e1 = 1">
+                                            <v-btn color="light" class="mr-2" @click="e1 = 1">
                                                 <v-icon>mdi-chevron-left</v-icon>Regresar
-                                            </v-btn>
-                                            <v-btn outlined type="submit" color="success" :loading="loading">
-                                                Registrar<v-icon>mdi-check</v-icon>
                                             </v-btn>
                                         </div>
                                     </v-stepper-content>
                                 </v-stepper-items>
-                            </v-form>
-                        </v-stepper>
-                    </v-container>
-                </v-col>
-            </v-row>
-        </v-container>
+                            </v-stepper>
+                        </v-container>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-form>
     </div>
 </template>
 <script>
-  export default {
+
+import axios from 'axios'
+
+export default {
     beforeCreate() {
-      var url = '/page/add';
-      if (this.$router.history.current.params && this.$router.history.current.params.id) {
-        url = '/page/edit/' + this.$router.history.current.params.id;
-      }
-      return this.$axiosx.get(url)
-      .then((res) => {
-        this.page = res.data.page;
-      });
+
+        // Se defines las URL que establecen comunicación entre la vista (cliente) y el controlador (servidor)
+        // En este caso se utiliza una sola vista con un formulario para crear nuevos registros y editarlos. 
+        var url = '/empresa/add';
+
+        if (this.$router.history.current.params && this.$router.history.current.params.id) {
+            url = '/empresa/edit/' + this.$router.history.current.params.id;
+
+            /* 
+            * Se envía la solicitud al controlador a través de una promesa axios. 
+            * La respuesta de esta promesa (dada por el método correspondiente en el controlador, dictado por la URL) asigna el valor 
+            */
+            return this.$axiosx.get(url)
+            .then((res) => {
+                this.empresa = res.data.empresa;
+                this.direccion = res.data.direccion;
+            });
+        }
+
+        return this.$axiosx.get(url)
+        .then((res) => {
+            this.empresa = res.data.empresa;
+        });
+    },
+    created(){
+
+        // Recupera catálogos de Estados, municipios (dinámico y dependiente del Estado) y tipos de calles.
+        this.getEstados();
+        this.getTiposCalle();
+        
+        // 
+        // this.getData();
     },
     data () {
       return {
-        page: [],
+        // empresa: [],
+        // direccion:[],
         // Página donde comienza el Asistente multipasos para el registro
         e1: 1,
 
-        // Dropdowns 
+        // Elementos de selección tipo Dropdowns 
         estados: [],
         municipios: [], // Dependiente dinámico
         tipo_de_calles: [],
@@ -279,15 +246,24 @@
         FILE: null,
 
         // Empresa
-        empresa: {nombre: '', descripcion: '', telefono: '', giro_comercio: '0', logotipo: ''},
+        empresa: {nombre: '', descripcion: '', telefono: '', giro_comercio: 'Productos', logotipo: ''},
 
         // Dirección
-        direccion: {id_estado: 0, id_municipio: 0, id_tipo_calle: 0, calle: '', colonia: '', codigo_postal: '', num_exterior: '', num_interior: '', latitud: 0, longitud: 0},
+        direccion: {
+            id_estado: 0, 
+            id_municipio: 0, 
+            id_tipo_calle: 0, 
+            calle: '', 
+            colonia: '', 
+            codigo_postal: '', 
+            num_exterior: '', 
+            num_interior: '', 
+            latitud: 0, 
+            longitud: 0
+        },
 
         palabras_clave: ['Ventas en línea', 'Comercio electrónico'],
         items: ['Ventas en línea','Comercio electrónico','Innovación','Tecnología','Comercio','Calidad'],
-
-        loading: false, // Da animación de carga en el botón de Submit
         search: "", // Sync search
 
         // Componente Google Maps
@@ -296,21 +272,21 @@
         currentPlace: null,
       }
     },
-
     watch : {
-      '$route.query.added' : function (val) {
-          this.getData();
-      }
+        '$route.query.added' : function (val) {
+            this.getData();
+        }
     },
+
     methods: {
         // Elementos SELECT del formulario de DIRECCIÓN
-        getEstados: function(){ // Obtener los estados
+        getEstados: function(){ // Recuperar los estados
             axios.get('/api/getEstados')
             .then(function(response){
                     this.estados = response.data;
             }.bind(this));
         },
-        getMunicipios: function(){ // Obtener los municipios filtrando el id_estado seleccionado
+        getMunicipios: function(){ // Recuperar los municipios filtrando el id_estado seleccionado
             axios.get('/api/getMunicipios',{
                 params: {
                     id_estado: this.direccion.id_estado
@@ -319,7 +295,7 @@
                 this.municipios = response.data;
             }.bind(this));
         },
-        getTiposCalle: function(){ // Obtener los tipos de calle
+        getTiposCalle: function(){ // Recuperar los tipos de calle
             axios.get('/api/getTiposCalle')
             .then(function(response){
                 this.tipo_de_calles = response.data;
@@ -363,15 +339,13 @@
                 this.center = tmp_marker; // Asigna la nueva ubicación al marcador 
                 this.currentPlace = null; // Convierte nuevamente a NULL el lugar actual, para que al momento de buscar otra locación cambiar el marcador
 
-                // Asignar valores de latitud y longitud de los campos en formulario
+                // Asignar valores de latitud y longitud de los campos en formulario - Obtenidos por el componente de autocompletado.
                 this.direccion.latitud = this.marker.position.lat;
                 this.direccion.longitud = this.marker.position.lng;
             }
         },
-        // Muestra en los campos de texto la Latitud y la Longitud del marcador en el mapa
-        showLocation: function(evt){
-            
-            // Asignar valores de latitud y longitud de los campos en formulario
+        // Asignar valores de latitud y longitud de los campos en formulario - Obtenidos por el evento 'dragend' del componente del marcador.
+        showLocation: function(evt){  
             this.direccion.latitud = evt.latLng.lat();
             this.direccion.longitud = evt.latLng.lng();
         },
@@ -382,62 +356,103 @@
             // this.FILE = event.target.files[0];
         // },
         
+        // Obtener información para la vista EDITAR
         getData () {
-            // if (this.$route.params && this.$route.params.id) {
-            //     var url = '/page/edit/' + this.$route.params.id;
-            //     return this.$axiosx.get(url)
-            //     .then((res) => {
-            //         this.page = res.data.page;
-            //     });
-            // }
+            if (this.$route.params && this.$route.params.id) {
+                var url = '/empresa/edit/' + this.$route.params.id;
+                return this.$axiosx.get(url)
+                .then((res) => {
+                    this.empresa = res.data.empresa;
+                    // this.direccion = res.data.direccion;
+                });
+            }
         },
         getHeading () {
+            // Si la variable está definida y tiene un nombre definido, enotnces retornar el nombre para la cabecera
+            if (this.empresa && this.empresa.nombre) {
+                return this.empresa.nombre;
+            }
+            // Cabecera por default para la vista
             return 'Agregar empresa';
         },
-        pageAdd () {
-            if (this.$refs.pageAdd.validate() == false) {
-                this.$store.commit('snackbar', {
-                    status: 'error',
-                    text: 'Existen campos vacíos o no válidos. Por favor, ingrese los datos correctamente.'
-                });
-              
-              return true;
-            }
+        empresaAdd () {
             
-            var fd = new FormData(this.$refs.pageAdd.$el);
+            // Validacion de formulario
+            // PENDIENTES
             
-            this.dialog = true;
+            // Se crea un objeto de tipo FormData
+            const formData = new FormData();
             
-            var url = '/page/add';
+            /* 
+            * FORMULARIO EMPRESAS
+            */
+            // formData.append('logotipo', this.FILE, this.FILE.name); // Upload file
+
+            formData.append('nombre', this.empresa.nombre);
+            formData.append('descripcion', this.empresa.descripcion);
+            formData.append('telefono', this.empresa.telefono);
+            formData.append('giro_comercio', this.empresa.giro_comercio);
+
+            var cadena_palabras_clave = this.palabras_clave.join(',');
+            formData.append('palabras_clave', cadena_palabras_clave);
+
+            /* 
+            * FORMULARIO DIRECCIÓN
+            */
+            formData.append('id_estado', this.direccion.id_estado);
+            formData.append('id_municipio', this.direccion.id_municipio);
+            formData.append('id_tipo_calle', this.direccion.id_tipo_calle);
+            formData.append('calle', this.direccion.calle);
+            formData.append('codigo_postal', this.direccion.codigo_postal);
+            formData.append('colonia', this.direccion.colonia);
+            formData.append('num_exterior', this.direccion.num_exterior);
+            formData.append('num_interior', this.direccion.num_interior);
+            formData.append('latitud', this.direccion.latitud);
+            formData.append('longitud', this.direccion.longitud);
+
+            let url = '/empresa/add';
         
             if (this.$router.history.current.params && this.$router.history.current.params.id) {
-                url = '/page/edit/' + this.$router.history.current.params.id;
+                url = '/empresa/edit/' + this.$router.history.current.params.id;
             }
-            this.$axiosx.post(url, fd).then((res) => {
+
+            /*
+            * Se envía la solicitud al controlador a través de una promesa axios. La promesa está dada por la URL en cuestión y los datos del objeto de tipo FormData
+            * La URL es tomada por el fichero de rutas de Laravel y establece la comunicación de solicitudes entre la ruta (el cliente) y el controlador (el servidor).
+            */ 
+            this.$axiosx.post(url, formData).then((res) => {
+                // Si el controlador envía un estado de error en la validación por parte del servidor
                 if (res.data.status == 'error') {
+                    // Muestra el mesaje que notifica de este error
                     this.$store.commit('snackbar', res.data);
                 }
-
+                
+                // Si el controlador envía un estado de redirección. Es decir, que no recibe un 'id' dentro del objeto FromData
+                // Entonces agregar al enrutador la dirección (retornada por el controlador a traves de la URL) y el estado de la consulta. También se ejecuta el método local 'added()'.
                 if (res.data.status == 'redirect') {
                     this.$router.push({
-                    path: res.data.text,
-                    query: { added: 'true' }
+                        path: res.data.text,
+                        query: { added: 'true' }
                     });
                     this.added();
                 }
+                
+                // Si el controlador envía un estado de success en la validación por parte del servidor
                 if (res.data.status == 'success') {
                     this.$store.commit('snackbar', res.data);
                 }
             });
         },
-            added() {
-                if (this.$router.history.current.query.added == 'true') {
+        added() {
+            // Si el estado de la consulta es de aceptado
+            if (this.$router.history.current.query.added == 'true') {
+                // Muestra el mesaje de éxito
                 this.$store.commit('snackbar', {
                     status: 'success',
-                    text: 'La página ha sido agregada satisfactoriamente.'
+                    text: 'La página ha sido agregada.'
                 });
-                }
             }
         }
-  }
+    }
+}
 </script>

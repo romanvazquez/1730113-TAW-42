@@ -8,7 +8,9 @@
       id="_mainAppBar"
     >
       <div class="flex align-center">
+          <!-- Título de la cabecera -->
           <v-toolbar-title v-text="heading"></v-toolbar-title>
+          <!-- Descripción -->
           <div class="ml-5" v-if="caption">
               <small class="caption">(Showing {{ caption }})</small>
           </div>
@@ -17,21 +19,19 @@
       <div class="flex-grow-1"></div>
 
       <div id="_metas_other" class="flex align-center flex-end">
-          <slot>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
+        <slot>
+            <v-btn icon>
+              <v-icon>mdi-heart</v-icon>
+            </v-btn>
 
-              <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-          </slot>
-        </div>
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+        </slot>
+      </div>
 
-      <v-menu
-        left
-        bottom
-      >
+      <!-- Menú superior derecho de lista -->
+      <v-menu left bottom >
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -39,10 +39,8 @@
         </template>
 
         <v-list>
-          <v-list-item
-            :href="'/' + ADMIN_API_ROUTE + '/logout'"
-          >
-            <v-list-item-title>Sign Out</v-list-item-title>
+          <v-list-item :href="'/' + ADMIN_API_ROUTE + '/logout'">
+            <v-list-item-title>Cerrar sesión</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -60,12 +58,15 @@
 export default {
     props: {
       heading: {},
-      caption: {}
+      caption: {},
+      user: null,
     },
     data () {
         return {
           ADMIN_API_ROUTE: ADMIN_API_ROUTE
         }
-    }
+    },
+    created () {
+    },
 }
 </script>

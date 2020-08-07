@@ -4,11 +4,6 @@ import vuetify from './plugins/Vuetify'
 import routes from './routes'
 import vuex from './store/index.js'
 
-// Import Bootstrap and BootstrapVue css files
-/* npm install vue bootstrap-vue bootstrap */
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 // Animate on scroll library 
 /* npm install --save aos@next */
 import AOS from 'aos'

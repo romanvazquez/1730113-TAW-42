@@ -10,6 +10,7 @@ import PageAdd from './pages/page/add'
 
 import Empresas from './pages/empresas/list'
 import EmpresaAdd from './pages/empresas/add'
+import EmpresaEdit from './pages/empresas/add'
 
 import PostCategoryAdd from './pages/postCategory/add.vue'
 import PostCategoryEdit from './pages/postCategory/add.vue'
@@ -36,17 +37,17 @@ const routes = [
         component: RegisterScreen
     },
     {
-        path: '/registrar-empresa',
-        component: RegistrarEmpresa
-    },
-    {
         path: '/login',
         component: LoginScreen
     },
     
     {
-        path: '/empresas/add',
+        path: '/empresa/add',
         component: EmpresaAdd
+    },
+    {
+        path: '/empresa/edit/:id',
+        component: EmpresaEdit
     },
     {
         path: '/empresas',

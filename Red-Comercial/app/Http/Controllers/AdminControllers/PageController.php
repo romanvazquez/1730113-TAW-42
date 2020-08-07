@@ -4,16 +4,15 @@ namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\AdminController;
 use App\Objects\Page;
+// use App\Objects\Empresa;
 use App\Objects\Media;
 
-class PageController extends AdminController
-{
-    public function initListing()
-    {
+class PageController extends AdminController{
+    public function initListing(){
+        
         $this->initProcessFilter();
 
-        $page = Page::select('id', 'name', 'url', 'status')
-        ->orderBy('id', 'desc');
+        $page = Page::select('id', 'name', 'url', 'status')->orderBy('id', 'desc');
 
         if ($this->filter) {
             $page->where($this->filter_search);
@@ -27,15 +26,15 @@ class PageController extends AdminController
                   'filter' => true
               ],
               'name' => [
-                  'text' => 'Name',
+                  'text' => 'Nombre',
                   'filter' => true
               ],
               'url' => [
-                  'text' => 'Url',
+                  'text' => 'URL',
                   'filter' => true
               ],
               'status' => [
-                  'text' => 'Status',
+                  'text' => 'Estado',
                   'filter' => false,
                   'switch' => true
               ]
@@ -47,18 +46,20 @@ class PageController extends AdminController
         );
     }
 
-    public function initContentCreate($id = null)
-    {
+    public function initContentCreate($id = null){
+        
         $actions = array(
           'heading' => 'Page',
           'slug' => '/pages'
         );
 
         $this->obj = new Page;
+        // $this->microsites_owned_by_user = Empresa::select('id', 'nombre')->where('id_user', \Auth::guard('admin_user')->user()->id )->orderBy('id');
+
         if ($id) {
           $this->obj = $this->obj->find($id);
           $actions = array(
-            'heading' => 'Page : ' . $this->obj->name,
+            'heading' => 'Página : ' . $this->obj->name,
             'slug' => '/pages'
           );
         }
@@ -69,8 +70,8 @@ class PageController extends AdminController
         );
     }
 
-    public function initProcessCreate($id = null)
-    {
+    public function initProcessCreate($id = null){
+
         $this->obj = new Page;
 
         if ($id) {
@@ -90,25 +91,23 @@ class PageController extends AdminController
         $data->status = $status;
         $data->meta_title = request()->input('meta_title');
         $data->meta_description = request()->input('meta_description');
+
         $data->save();
 
-        if (!$id) {
+        // Cuando la Id es diferente de null, entonces retorna el estado 'redirect' y para un mensaje para agregar a la ruta
+        if (!$id) { 
             return json('redirect', 'edit/' . $data->id);
         }
 
-        return json('success', t('Page Updated'));
+        // Retorna un estado de éxito y un mensaje de que se ha actualizado
+        return json('success', t('La página ha sido actualizada'));
     }
 
 
-    public function initProcessDelete()
-    {
+    public function initProcessDelete(){
         $component = request()->input('component');
         $id = request()->input('id');
-
-        if ($component == 'employee') {
-            $component = 'admin_user';
-        }
-
+        
         if (!$id) {
             return true;
         }
@@ -117,13 +116,13 @@ class PageController extends AdminController
             return true;
         }
 
-        $component = \Str::camel($component);
-        $class = '\App\\Objects\\' . $component;
+        $component = ucwords(\Str::camel($component));
+        $class = '\App\\Objects\\' . $component; 
 
         $c = $class::find($id);
         $c->delete();
 
-        return json('success', 'Deleted successfully');
+        return json('success', 'La página ha sido eliminada.');
     }
 
     public function initProcessChangeStatus()
