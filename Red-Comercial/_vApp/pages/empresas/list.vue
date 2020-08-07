@@ -1,12 +1,12 @@
 <template>
     <div>
         <Header heading="Empresas">
-            <v-btn to="/empresas/add" color="info">
-                <v-icon left>mdi-view-list</v-icon>Agregar nueva
+            <v-btn to="/empresa/add" color="info">
+                <v-icon left>mdi-view-list</v-icon>Agregar
             </v-btn>
         </Header>
         
-        <Listing endpoint="/empresas" slug="/empresas" component="empresas"></Listing>
+        <Listing endpoint="/empresa" slug="/empresa" component="empresa"></Listing>
     </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
     data () {
         return {
             obj: [],
-            slug: '/empresas',
+            slug: '/empresa',
             totalPage: null
         }
     }

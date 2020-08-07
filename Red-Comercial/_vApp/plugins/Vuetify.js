@@ -66,7 +66,8 @@ import Vuetify, {
     VStepperContent,
     VChip,
     VAvatar,
-    VFileInput
+    VFileInput,
+    VFooter
 } from "vuetify/lib"
 
 Vue.use(Vuetify, {
@@ -134,7 +135,8 @@ Vue.use(Vuetify, {
         VStepperContent,
         VChip,
         VAvatar,
-        VFileInput   
+        VFileInput,
+        VFooter   
     }
 })
 

@@ -3,15 +3,15 @@
 
         <VisitanteAppBar/>
 
-        <v-row class="justify-content-center align-center">
-            <v-col cols="12" sm="12" md="10" lg="8" xl="8">
+        <v-row class="justify-center align-center">
+            <v-col cols="10" sm="10" md="8" lg="7" xl="6">
                 <v-container>
                     <v-card>
 
                         <v-toolbar>
                             <v-toolbar-title class="headline">
-                            <v-icon left>mdi-account</v-icon>
-                            Regístrate
+                                <v-icon left>mdi-account</v-icon>
+                                Regístrate
                             </v-toolbar-title>
                             <div class="flex justify-center justify-md-end"></div>
                             <router-link to="/login" class="caption">
@@ -48,8 +48,8 @@
                                         </v-text-field>
                                     </v-col>
                                     
-                                    <v-col cols="12" sm="6" class="mt-n8">
-                                        <v-radio-group label="Seleccione su sexo" v-model="form.sexo" row>
+                                    <v-col cols="12" sm="6" class="mt-n9">
+                                        <v-radio-group label="Seleccione su sexo *" v-model="form.sexo">
                                             <v-radio label="Hombre" value="H"></v-radio>
                                             <v-radio label="Mujer" value="M"></v-radio>
                                         </v-radio-group>
@@ -280,7 +280,7 @@ export default {
                     });
                     
                     this.$store.commit('setDrawerVisibility', true);
-                    this.$router.push('/pages');
+                    this.$router.push('/login');
                     return true;
                 }
 

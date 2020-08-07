@@ -3,15 +3,15 @@
     
     <VisitanteAppBar/>
 
-    <v-row class="justify-content-center align-center _90vh">
-      <v-col cols="10" sm="10" md="8" lg="7" xl="7">
+    <v-row class="justify-center align-center _90vh">
+      <v-col cols="10" sm="10" md="7" lg="6" xl="5">
         <v-container>
           <v-card>
 
             <v-toolbar>
                 <v-toolbar-title class="headline">
-                  <v-icon left>mdi-account</v-icon>
-                  Iniciar sesión
+                    <v-icon left>mdi-account</v-icon>
+                    Iniciar sesión
                 </v-toolbar-title>
                 <div class="flex justify-center justify-md-end"></div>
                 <router-link to="/register/empresario" class="caption">

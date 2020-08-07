@@ -8,8 +8,7 @@ use App\Objects\PostCategory;
 class PostCategoryController extends AdminController
 {
 
-  public function initListing()
-  {
+  public function initListing(){
       $this->initProcessFilter();
 
       $post_category = PostCategory::select('id', 'title', 'status')

@@ -1,30 +1,29 @@
 <template>
     <v-app class="main-bg">
         <div class="flex">
+            
             <Media></Media>
+            
+            <!-- Navigation drawers o Sidebar -->
             <Drawer
               v-if="$store.state.drawerVisibility"
             ></Drawer>
+            
+            <!-- Contenido -->
             <div class="flex column">
                 <div id="_wrapper" class="pa-5">
                     <router-view></router-view>
                 </div>
             </div>
+            
             <div class="UppyProgressBar"></div>
-            <v-snackbar
-                v-model="snackbar.status"
-                :color="snackbar.color"
-                :timeout="timeout"
-                :top="false"
-                :bottom="true"
-            >
-                {{ snackbar.text }}
-                <v-btn
-                    color="#fff"
-                    text
-                    @click="snackbar.status = false"
-                >
-                    Close
+
+            <!-- Notificación de alerta -->
+            <v-snackbar v-model="snackbar.status" :top="false" :bottom="true" :color="snackbar.color" :timeout="timeout">
+                {{ snackbar.text }} <!-- Mensaje -->
+                
+                <v-btn color="#fff" text @click="snackbar.status = false"> <!-- Botón de cerrar -->
+                    Cerrar
                 </v-btn>
             </v-snackbar>
         </div>
@@ -40,6 +39,7 @@ import Textarea from '../components/RichTextarea.vue'
 import Geo from '../components/GeoComplete.vue'
 import Paginate from '../components/Paginate.vue'
 import Listing from '../components/Listing.vue'
+import SEO from '../components/SEO.vue'
 
 Vue.component('Drawer', Drawer)
 Vue.component('Header', Header)
@@ -49,6 +49,7 @@ Vue.component('Textarea', Textarea)
 Vue.component('Geo', Geo)
 Vue.component('Paginate', Paginate)
 Vue.component('Listing', Listing)
+Vue.component('SEO', SEO)
 
 import VisitanteAppBar from '../components/VisitanteAppBar'
 import VisitanteFooter from '../components/VisitanteFooter'

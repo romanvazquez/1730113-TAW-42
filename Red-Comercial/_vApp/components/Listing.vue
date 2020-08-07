@@ -1,11 +1,7 @@
 <template>
     <div>
         <v-card>
-
-            <v-simple-table
-               fixed-header
-               v-if="obj"
-           >
+            <v-simple-table fixed-header v-if="obj">
                <thead>
                    <tr>
                        <th
@@ -14,10 +10,11 @@
                            v-text="key.text"
                        >
                        </th>
-                       <th>Action</th>
+                       <th>Acción</th>
                    </tr>
                </thead>
                <tbody>
+                   <!-- Filtros para obtener resultados de búsqueta -->
                    <tr class="filters my-5">
                        <td
                            v-for="(key, i) in filterKeys"
@@ -39,7 +36,10 @@
                        </td>
                        <td></td>
                    </tr>
+                   <!-- Registros de las tablas en la base de datos -->
                    <tr v-for="(d, i) in obj.data" :key="i">
+                       
+                       <!-- Elementos Switch para activar status -->
                        <td v-for="(key, index) in keys" :key="index">
                            <div v-if="key.switch">
                                <v-switch
@@ -53,11 +53,9 @@
                                {{ d[index] }}
                            </div>
                        </td>
+                       <!-- Botón para desplegar las acciones -->
                        <td>
-                           <v-menu
-                               left
-                               bottom
-                           >
+                           <v-menu left bottom>
                                <template v-slot:activator="{ on }">
                                <v-btn icon v-on="on">
                                    <v-icon>mdi-dots-horizontal</v-icon>
@@ -66,14 +64,13 @@
                                <v-list>
                                    <v-list-item :to="slug + '/edit/' + d['id']">
                                        <v-list-item-title>
-                                           <v-icon left>mdi-pencil-outline</v-icon>
-                                           Edit
+                                           <v-icon left>mdi-pencil-outline</v-icon>Editar
                                        </v-list-item-title>
                                    </v-list-item>
-                                   <v-list-item @click="deleteData(d['id'])" color="error">
+
+                                   <v-list-item @click="deleteData(d['id'])">
                                        <v-list-item-title>
-                                           <v-icon left>mdi-delete-outline</v-icon>
-                                           Delete
+                                           <v-icon left>mdi-delete-outline</v-icon>Eliminar
                                        </v-list-item-title>
                                    </v-list-item>
                                </v-list>
@@ -229,7 +226,7 @@ export default {
             this.getList(paginate);
         },
         deleteData (id) {
-            var c = confirm('Do you want to delete this?');
+            var c = confirm('¿Seguro que quieres eliminar este registro?');
             if (c) {
                 var data = {
                     id : id,

@@ -20,6 +20,7 @@ Route::get('api/empresario/check/login', 'AdminUserController@initProcessCheckLo
 
 Route::group(['prefix' => 'api', 'middleware' => 'admin_user'], function () {
 
+    // Categorías
     Route::get('post/category/add', 'PostCategoryController@initContentCreate')->name('post_category.add');
     Route::post('post/category/add', 'PostCategoryController@initProcessCreate');
     Route::get('post/category/edit/{id}', 'PostCategoryController@initContentCreate')->name('post_category.edit');
@@ -27,6 +28,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'admin_user'], function () {
     Route::get('post/category', 'PostCategoryController@initListing')->name('post_category.list');
     Route::get('post/category/delete/{id}', 'PostCategoryController@initProcessDelete')->name('post_category.delete');
 
+    // Post
     Route::get('post/add', 'PostController@initContentCreate')->name('post.add');
     Route::post('post/add', 'PostController@initProcessCreate');
     Route::get('post/edit/{id}', 'PostController@initContentCreate')->name('post.edit');
@@ -34,11 +36,20 @@ Route::group(['prefix' => 'api', 'middleware' => 'admin_user'], function () {
     Route::get('post', 'PostController@initListing')->name('post.list');
     Route::get('post/delete/{id}', 'PostController@initProcessDelete')->name('post.delete');
 
+    // Páginas
     Route::get('page/add', 'PageController@initContentCreate')->name('page.add');
     Route::post('page/add', 'PageController@initProcessCreate');
     Route::get('page/edit/{id}', 'PageController@initContentCreate')->name('page.edit');
     Route::post('page/edit/{id}', 'PageController@initProcessCreate');
     Route::get('page', 'PageController@initListing')->name('page.list');
+
+    // Empresas
+    Route::get('empresa/add', 'EmpresaController@initContentCreate')->name('empresa.add');
+    Route::post('empresa/add', 'EmpresaController@initProcessCreate');
+    Route::get('empresa/edit/{id}', 'EmpresaController@initContentCreate')->name('empresa.edit');
+    Route::post('empresa/edit/{id}', 'EmpresaController@initProcessCreate');
+    Route::get('empresa', 'EmpresaController@initListing')->name('empresa.list');
+
 
     Route::post('change/status', 'PageController@initProcessChangeStatus');
     Route::post('{component}/delete/{id}', 'PageController@initProcessDelete');

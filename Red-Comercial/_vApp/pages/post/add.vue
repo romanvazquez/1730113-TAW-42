@@ -1,39 +1,35 @@
 <template>
     <div>
         <v-form id="postAdd" ref="postAdd" @submit.prevent="postAdd" autocomplete="nope">
-            <Header
-              :heading="getHeading()"
-            >
+            <!-- Cabecera del componente -->
+            <Header :heading="getHeading()">
+
+              <!-- Botón de activación que determina el estado -->
               <v-switch
                   hide-details
                   class="mr-8"
                   v-model="post.published"
                   inset
                   name="published"
-                  :label="!post.published ? 'Draft' : 'Publish'"
+                  :label="!post.published ? 'Borrador' : 'Publicado'"
                   color="success"
                   :value="post.published"
-                ></v-switch>
-              <v-btn
-                  min-width="130px"
-                  color="success"
-                  class="mr-5"
-                  type="submit"
-                  :loading="$store.state.loading"
-              >
-                  <v-icon left>mdi-content-save-outline</v-icon>
-                  Save
+              ></v-switch>
+
+              <!-- Botón para guardar y enviar el contenido del formulario -->
+              <v-btn color="success" class="mr-5" type="submit" :loading="$store.state.loading">
+                  <v-icon left>mdi-content-save-outline</v-icon>Guardar
               </v-btn>
-                <v-btn
-                    to="/post"
-                    color="info"
-                >
-                    <v-icon left>mdi-view-list</v-icon>
-                    list
-                </v-btn>
+
+              <!-- Botón para ir hacia el listado -->
+              <v-btn to="/posts" color="info" >
+                  <v-icon left>mdi-view-list</v-icon>Ver posts
+              </v-btn>
             </Header>
-            <v-layout class="row wrap">
-              <v-flex class="col sm12 xs12 md9 xl9">
+            
+            <!-- Contenido del componente -->
+            <v-row class="wrap">
+              <v-col cols="12" sm="12" md="9" lg="9" xl="9">
                 <v-card class="full">
 
                   <v-tabs
@@ -41,7 +37,7 @@
                     color="info accent-4"
                     left
                   >
-                    <v-tab>Information</v-tab>
+                    <v-tab>Información</v-tab>
                     <v-tab>SEO</v-tab>
                     <v-tab-item class="pa-5" :eager="true">
                       <div class="full">
@@ -74,26 +70,19 @@
                       </div>
                     </v-tab-item>
 
-                   <v-tab-item class="pa-5" :eager="true">
-                     <SEO
-                        :meta="post"
-                     >
-                     </SEO>
-                   </v-tab-item>
-                 </v-tabs>
+                    <v-tab-item class="pa-5" :eager="true">
+                      <SEO :meta="post"></SEO>
+                    </v-tab-item>
+                  </v-tabs>
 
                 </v-card>
+              </v-col>
 
-              </v-flex>
-
-              <v-flex class="col sm12 xs12 md3 xl3">
+              <v-col cols="12" sm="12" md="3" lg="3" xl="3">
                 <div justify="center">
-                  <v-expansion-panels
-                  accordion
-                  v-model="panel">
-
+                  <v-expansion-panels accordion v-model="panel">
                     <v-expansion-panel class="_collapse">
-                      <v-expansion-panel-header>Post Date</v-expansion-panel-header>
+                      <v-expansion-panel-header>Fecha de publicación</v-expansion-panel-header>
                       <v-expansion-panel-content :eager="true">
                         <v-date-picker
                            v-model="post.post_date"
@@ -104,7 +93,7 @@
                     </v-expansion-panel>
 
                     <v-expansion-panel class="_collapse">
-                        <v-expansion-panel-header>Categories</v-expansion-panel-header>
+                        <v-expansion-panel-header>Categorías</v-expansion-panel-header>
                         <v-expansion-panel-content :eager="true">
                           <v-checkbox
                             v-for="(cat, i) in post.category"
@@ -132,24 +121,33 @@
                           ></File>
                       </v-expansion-panel-content>
                     </v-expansion-panel>
-
                   </v-expansion-panels>
                 </div>
-              </v-flex>
-            </v-layout>
+              </v-col>
+            </v-row>
       </v-form>
     </div>
 </template>
 <script>
   export default {
     beforeCreate() {
+
+      // Se defines las URL que establecen comunicación entre la vista (cliente) y el controlador (servidor)
+      // En este caso una misma vista con un formulario, funciona para crear nuevos registros y editarlos. 
+
       var url = '/post/add';
+
       if (this.$router.history.current.params && this.$router.history.current.params.id) {
         url = '/post/edit/' + this.$router.history.current.params.id;
       }
-      return this.$axiosx.get(url)
-      .then((res) => {
+
+      /* 
+      * Se envía la solicitud al controlador a través de una promesa axios. 
+      * La respuesta de esta promesa (dada por el método correspondiente en el controlador, dictado por la URL) asigna el valor 
+      */
+      return this.$axiosx.get(url).then((res) => {
           this.post = res.data.post;
+          
           if (this.post.display_home) {
             this.post.display_home == true;
           }
@@ -157,9 +155,7 @@
           if (this.post.main_post) {
             this.post.main_post == true;
           }
-
           console.log(res.data.post);
-
       });
     },
     data () {
@@ -189,67 +185,67 @@
             console.log(val);
 
         },
-      getData () {
-        if (this.$route.params && this.$route.params.id) {
-              var url = '/post/edit/' + this.$route.params.id;
-              return this.$axiosx.get(url)
-              .then((res) => {
-                  this.plans = res.data.plans;
-              });
-          }
-      },
-      getHeading () {
-          if (this.post && this.post.title) {
-                return 'Post: ' + this.post.title;
-          }
-
-          return 'Add Post';
-      },
-      postAdd () {
-        if (this.$refs.postAdd.validate() == false) {
-                this.$store.commit('snackbar', {
-                  status: 'error',
-                  text: 'Please supply mandatory fields.'
+        getData () {
+          if (this.$route.params && this.$route.params.id) {
+                var url = '/post/edit/' + this.$route.params.id;
+                return this.$axiosx.get(url)
+                .then((res) => {
+                    this.plans = res.data.plans;
                 });
-                return true;
-        }
-        var fd = new FormData(this.$refs.postAdd.$el);
-        this.dialog = true;
-        var url = '/post/add';
-        if (this.$router.history.current.params && this.$router.history.current.params.id) {
-          url = '/post/edit/' + this.$router.history.current.params.id;
-        }
-        this.$axiosx.post(url, fd).then((res) => {
-          if (res.data.status == 'error') {
-            this.$store.commit('snackbar', res.data);
-            this.dialog = false;
-          }
+            }
+        },
+        getHeading () {
+            if (this.post && this.post.title) {
+                  return 'Post: ' + this.post.title;
+            }
 
-          if (res.data.status == 'redirect') {
-            this.$router.push({
-              path: res.data.text,
-              query: { added: 'true' }
-            });
-            this.dialog = false;
-            this.addedManufacturer();
+            return 'Agregar Post';
+        },
+        postAdd () {
+          if (this.$refs.postAdd.validate() == false) {
+                  this.$store.commit('snackbar', {
+                    status: 'error',
+                    text: 'Please supply mandatory fields.'
+                  });
+                  return true;
           }
-          if (res.data.status == 'success') {
+          var fd = new FormData(this.$refs.postAdd.$el);
+          this.dialog = true;
+          var url = '/post/add';
+          if (this.$router.history.current.params && this.$router.history.current.params.id) {
+            url = '/post/edit/' + this.$router.history.current.params.id;
+          }
+          this.$axiosx.post(url, fd).then((res) => {
+            if (res.data.status == 'error') {
               this.$store.commit('snackbar', res.data);
               this.dialog = false;
-          }
-        });
-      },
-      saveManufacturer () {
-        this.$refs.postAdd.submit();
-      },
-      addedManufacturer() {
-        if (this.$router.history.current.query.added == 'true') {
-          this.$store.commit('snackbar', {
-            status: 'success',
-            text: 'Post Added Successfully'
+            }
+
+            if (res.data.status == 'redirect') {
+              this.$router.push({
+                path: res.data.text,
+                query: { added: 'true' }
+              });
+              this.dialog = false;
+              this.addedManufacturer();
+            }
+            if (res.data.status == 'success') {
+                this.$store.commit('snackbar', res.data);
+                this.dialog = false;
+            }
           });
+        },
+        saveManufacturer () {
+          this.$refs.postAdd.submit();
+        },
+        addedManufacturer() {
+          if (this.$router.history.current.query.added == 'true') {
+            this.$store.commit('snackbar', {
+              status: 'success',
+              text: 'Post Added Successfully'
+            });
+          }
         }
       }
     }
-  }
 </script>

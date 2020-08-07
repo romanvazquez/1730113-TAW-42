@@ -13,8 +13,7 @@ use App\Role;
 
 class AdminUserController extends AdminController
 {
-    public function initListing()
-    {
+    public function initListing(){
         $this->initProcessFilter();
 
         $admin_user = AdminUser::select('id', 'nombres', 'email')
@@ -47,8 +46,7 @@ class AdminUserController extends AdminController
         );
     }
 
-    public function initContentRegister($id = null)
-    {
+    public function initContentRegister($id = null){
         $this->obj = new AdminUser;
 
         if ($id) {

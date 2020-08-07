@@ -2,7 +2,7 @@
     <div>
         <Header heading="Páginas">
             <v-btn to="/page/add" color="info">
-                <v-icon left>mdi-view-list</v-icon>Agregar nueva
+                <v-icon left>mdi-view-list</v-icon>Agregar
             </v-btn>
         </Header>
         

@@ -1,14 +1,14 @@
 <template>
     <v-container fluid>
-        <v-row class="justify-content-center align-center">
+        <v-row class="justify-center align-center">
             <v-col cols="12" sm="12" md="10" lg="11" xl="11">
                 
                 <v-card>
 
                     <v-toolbar>
                         <v-toolbar-title class="headline">
-                        <v-icon left>mdi-google-maps</v-icon>
-                        ¿Qué estás buscando?
+                            <v-icon left>mdi-google-maps</v-icon>
+                            ¿Qué estás buscando?
                         </v-toolbar-title>
                     </v-toolbar>
 
@@ -57,7 +57,6 @@ export default {
     },
 
     methods: {
-        
         // Recibe un objeto de lugar a través del componente de autocompletado
         setPlace(place) {
             this.currentPlace = place;
