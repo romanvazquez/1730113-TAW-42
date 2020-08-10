@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use AdLara\Boot\RoutesProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    use RoutesProvider;
     /**
      * This namespace is applied to your controller routes.
      *
@@ -58,9 +60,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+        $this->mapRoutes();
     }
 
     /**
