@@ -18,9 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-// Rutas para el Dropdown dinámico dependiente
+// Rutas para el Dropdown dinámico del formulario para Registrar empresas
 Route::get('getEstados', 'APIController@getEstados');
 Route::get('getMunicipios', 'APIController@getMunicipios');
-Route::get('getLocalidades', 'APIController@getLocalidades');
 Route::get('getTiposCalle', 'APIController@getTiposCalle');
+
+// Obtener coordenadas de todos las empresas registradas
+Route::get('getCoordenadas', 'APIController@getCoordenadas');

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Se importan los modelos necesarios
 use App\Estado;
 use App\Municipio;
 use App\TipoDeCalle;
+use App\Objects\Direccion; 
 
 class APIController extends Controller{
-
+    
     public function getEstados(){
 
         // Obtener todos los datos del modelo
@@ -30,6 +32,15 @@ class APIController extends Controller{
 
         //Obtener los datos del modelo
         $data = TipoDeCalle::get();
+        // Regresar la información en formato JSON
+        return response()->json($data);
+    }
+
+    public function getCoordenadas(){
+
+        // Obtener todos los datos del modelo
+        $data = Direccion::select('latitud','longitud')->get();
+
         // Regresar la información en formato JSON
         return response()->json($data);
     }
